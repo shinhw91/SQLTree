@@ -213,10 +213,31 @@ FROM employees
 WHERE (salary BETWEEN 5000 AND 12000) AND (department_id = 20 OR department_id = 50);
 
 -- 7번 문제
-SELECT last_name, job_id
+SELECT last_name, hire_date
 FROM employees
-WHERE hire_date = '14%';
+WHERE hire_date LIKE '14%';
 
 -- 8번 문제
--- 9번 문제
+SELECT last_name, job_id
+FROM employees
+WHERE manager_id is null;
+
 -- 10번 문제
+SELECT last_name
+FROM employees
+WHERE last_name LIKE '__a%';
+
+-- 11번 문제
+SELECT last_name
+FROM employees
+WHERE last_name LIKE '%a%' OR last_name LIKE '%e%';
+
+-- 12번 문제
+SELECT last_name, job_id, salary
+FROM employees
+WHERE (job_id = 'SA_REP' OR job_id = 'ST_CLERK') AND (salary NOT IN (2500, 3500, 7000));
+
+-- 13번 문제
+SELECT last_name, salary, commission_pct
+FROM employees
+WHERE commission_pct = 0.2;

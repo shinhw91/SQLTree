@@ -38,8 +38,8 @@ SELECT AVG(NVL(commission_pct, 0)), AVG(commission_pct)
 FROM employees;
 
 -- 파싱 순서 : FROM -> WHERE -> GROUP BY -> SELECT -> ORDER BY
--- GROUP BY : 컬럼(colunm)별
--- 그룹함수 외 컬럼(colunm) GROUP BY 추가 필수
+-- GROUP BY : 컬럼(Colunm)별
+-- 그룹함수 외 컬럼(Colunm) GROUP BY 추가 필수
 SELECT department_id, AVG(salary)
 FROM employees
 GROUP BY department_id;
@@ -48,7 +48,7 @@ SELECT AVG(salary)
 FROM employees
 GROUP BY department_id;
 
--- GROUP BY : 1차, 2차 그룹함수 기준
+-- GROUP BY : 1차 컬럼(Colunm)별, 2차 컬럼(Colunm)별
 SELECT department_id, job_id, SUM(salary), COUNT(salary)
 FROM employees
 GROUP BY department_id, job_id
@@ -78,7 +78,7 @@ SELECT MAX(AVG(salary))
 FROM employees
 GROUP BY department_id;
 
--- 그룹 함수 중첩 시 일반 컬럼(colunm) 추가 불가
+-- 그룹 함수 중첩 시 일반 컬럼(Colunm) 추가 불가
 SELECT department_id, MAX(AVG(salary))
 FROM employees
 GROUP BY department_id;
@@ -144,7 +144,7 @@ FROM employees, departments;
 
 -- 오라클 조인 조건 : WHERE 절
 -- 최소 (테이블 수 - 1) 조건문 필요
--- Equi Join
+-- Equi Join (=)
 SELECT e.employee_id, e.last_name, e.department_id, d.department_id, d.location_id, d.department_name
 FROM employees e, departments d
 WHERE e.department_id = d.department_id;
@@ -165,27 +165,25 @@ AND d.department_id IN (20, 50);
 SELECT *
 FROM job_grades;
 
--- Non-Equi Join
+-- Non-Equi Join (= 제외 나머지)
 SELECT e.last_name, e.salary, j.grade_level, j.lowest_sal, j.highest_sal
 FROM employees e, job_grades j
 WHERE e.salary
                BETWEEN j.lowest_sal AND j.highest_sal;
                
-SELECT grade_level, lowest_sal, highest_sal
-FROM job_grades;
-
--- Outer Join : 오라클에서는 Full Outer Join 없음
--- Right Outer Join : 오른쪽 컬럼(Colunm)에서 남는 값 포함
+-- OUTER JOIN : 오라클은 FULL OUTER JOIN 없음
+-- RIGHT OUTER JOIN : 오른쪽 컬럼(Colunm)에서 남는 값 포함
 SELECT e.last_name, e.department_id, d.department_name
 FROM employees e, departments d
 WHERE e.department_id(+) = d.department_id;
 
--- Left Outer Join : 왼쪽 컬럼(Colunm)에서 남는 값 포함
+-- LEFT OUTER JOIN : 왼쪽 컬럼(Colunm)에서 남는 값 포함
 SELECT e.last_name, e.department_id, d.department_name
 FROM employees e, departments d
 WHERE e.department_id = d.department_id(+);
 
--- Self Join????????????
+-- Self Join
+-- manager_id, employee_id 연결
 SELECT employee_id, last_name, manager_id
 FROM employees;
 
@@ -200,12 +198,13 @@ WHERE worker.manager_id = manager.employee_id;
 SELECT *
 FROM employees;
 
--- < 조인(JOIN) - 오라클 - 1999 조인 구문 >
--- 교차 조인(CROSS JOIN) : 오라클 - 1999
+-- < 조인(JOIN) - 오라클 - 1999 조인 구문 > : ANSI 조인
+-- ANSI 조인 조건 : FROM절
+-- 교차 조인(CROSS JOIN)          * ANSI 조인
 SELECT last_name, department_name
 FROM employees CROSS JOIN departments;
 
--- 교차 조인(CROSS JOIN) : 오라클
+-- 교차 조인(CROSS JOIN)          * 오라클 조인
 SELECT last_name, department_name
 FROM employees, departments;
 
@@ -216,28 +215,28 @@ FROM departments NATURAL JOIN locations;
 DESC departments;
 DESC locations;
 
--- USING 절
--- 기준 컬럼(Colunm)에서 테이블 열 별칭 제거
+-- USING절 : () 안에 작성
 SELECT employee_id, last_name, location_id, department_id
 FROM employees JOIN departments
                               USING (department_id);
-                              
+
+-- 기준 컬럼(Colunm)에서는 테이블 열 별칭 제거
 SELECT l.city, d.department_name
 FROM locations l JOIN departments d
                               USING (location_id)
 WHERE location_id = 1400;
 
--- ON 절
-SELECT e.employee_id, e.last_name, e. department_id, d.department_id, d.location_id
+-- ON절          * ANSI 조인
+SELECT e.employee_id, e.last_name, e.department_id, d.department_id, d.location_id
 FROM employees e JOIN departments d
                               ON (e.department_id = d.department_id);
                               
--- 오라클
+-- ON절         * 오라클 조인
 SELECT e.employee_id, e.last_name, e. department_id, d.department_id, d.location_id
-FROM employees e ,departments d
+FROM employees e, departments d
 WHERE e.department_id = d.department_id;
 
---
+-- ON절 3-way 조인               * ANSI 조인
 SELECT employee_id, city, department_name
 FROM employees e
                JOIN departments d
@@ -245,29 +244,29 @@ FROM employees e
                JOIN locations l
                               ON d.location_id = l.location_id;
 
--- 오라클
+-- ON절 3-way 조인               * 오라클 조인
 SELECT employee_id, city, department_name
 FROM employees e, departments d, locations l
 WHERE d.department_id = e.department_id
 AND d.location_id = l.location_id;
 
--- Outer Join 
--- Left Outer Join
+-- OUTER JOIN
+-- LEFT OUTER JOIN            * ANSI 조인
 SELECT e.last_name, e.department_id, d.department_name
 FROM employees e LEFT OUTER JOIN departments d
                ON (e.department_id = d.department_id);
 
--- 오라클
+-- LEFT OUTER JOIN            * 오라클 조인
 SELECT e.last_name, e.department_id, d.department_name
 FROM employees e, departments d
 WHERE e.department_id = d.department_id(+);
 
--- RIGHT Outer Join
+-- RIGHT OUTER JOIN           * ANSI 조인
 SELECT e.last_name, e.department_id, d.department_name
 FROM employees e RIGHT OUTER JOIN departments d
                ON (e.department_id = d.department_id);
 
--- 오라클
+-- RIGHT OUTER JOIN           * 오라클 조인
 SELECT e.last_name, e.department_id, d.department_name
 FROM employees e, departments d
 WHERE e.department_id(+) = d.department_id;
@@ -294,30 +293,36 @@ WHERE e.manager_id = 149;
 
 -- sql06
 -- 1번 문제
+-- 오라클 조인
 SELECT l.location_id, l.street_address, l.city, l.state_province, c.country_name
 FROM locations l, countries c
 WHERE l.country_id = c.country_id;
 
+-- ANSI 조인
 SELECT l.location_id, l.street_address, l.city, l.state_province, c.country_name
 FROM locations l JOIN countries c
                               ON l.country_id = c.country_id;
 
 -- 2번 문제
+-- 오라클 조인
 SELECT e.last_name, e.department_id, d.department_name
 FROM employees e, departments d
 WHERE e.department_id = d.department_id;
 
+-- ANSI 조인
 SELECT e.last_name, e.department_id, d.department_name
 FROM employees e JOIN departments d
                               ON e.department_id = d.department_id;
 
 -- 3번 문제
+-- 오라클 조인
 SELECT e.last_name, e.job_id, e.department_id, d.department_name
 FROM employees e, departments d, locations l
 WHERE e.department_id = d.department_id
 AND d.location_id = l.location_id
 AND LOWER(l.city) = 'toronto';
 
+-- ANSI 조인
 SELECT e.last_name, e.job_id, e.department_id, d.department_name
 FROM employees e JOIN departments d
                               ON e.department_id = d.department_id
@@ -327,42 +332,48 @@ FROM employees e JOIN departments d
 WHERE LOWER(l.city) = 'toronto';
 
 -- 4번 문제
---SELECT e.last_name AS "Employee", e.employee_id AS "Emp#", m.last_name AS "Manager", m.manager_id AS "Mgr#"
---FROM employees e, employees m
---WHERE e.manager_id = m.employee_id;
-
-SELECT w.last_name, w.employee_id, m.last_name, m.employee_id
+-- 오라클 조인
+SELECT w.last_name AS "Employee", w.employee_id AS "Emp#", m.last_name AS "Manager", m.employee_id AS "Mgr#"
 --SELECT w.last_name, w.employee_id, m.last_name, w.manager_id
-
 FROM employees w, employees m
 WHERE w.manager_id = m.employee_id;
 
-SELECT w.last_name, w.employee_id, m.last_name, m.employee_id
+-- ANSI 조인
+SELECT w.last_name AS "Employee", w.employee_id AS "Emp#", m.last_name AS "Manager", m.employee_id AS "Mgr#"
 FROM employees w JOIN employees m
                               ON w.manager_id = m.employee_id;
                               
-SELECT *
-FROM employees;
-
-
 -- 5번 문제
-SELECT e.last_name AS "Employee", e.employee_id AS "Emp#", m.last_name AS "Manager", m.manager_id AS "Mgr#"
-FROM employees e, employees m
-WHERE e.manager_id = m.employee_id;
---ORDER BY employee_id;
-
-SELECT w.last_name, w.employee_id, m.last_name, m.employee_id
+-- 오라클 조인
+SELECT w.last_name AS "Employee", w.employee_id AS "Emp#", m.last_name AS "Manager", m.employee_id AS "Mgr#"
 FROM employees w, employees m
---WHERE w.manager_id = m.employee_id(+)
+WHERE w.manager_id = m.employee_id(+)
 ORDER BY 2;
 
--- left outer join
+-- ANSI 조인
+SELECT w.last_name AS "Employee", w.employee_id AS "Emp#", m.last_name AS "Manager", m.employee_id AS "Mgr#"
+FROM employees w LEFT OUTER JOIN employees m
+                              ON w.manager_id = m.employee_id
+ORDER BY 2;
 
 -- 6번 문제
+DESC job_grades;
+
+SELECT *
+FROM job_grades;
+
+-- 오라클 조인
 SELECT e.last_name, e.job_id, d.department_name, e.salary, j.grade_level
 FROM employees e, departments d, job_grades j
 WHERE e.department_id = d.department_id
 AND e.salary BETWEEN j.lowest_sal AND j.highest_sal;
+
+-- ANSI 조인
+SELECT e.last_name, e.job_id, d.department_name, e.salary, j.grade_level
+FROM employees e JOIN departments d
+                              ON e.department_id = d.department_id
+                              JOIN job_grades j
+                              ON e.salary BETWEEN j.lowest_sal AND j.highest_sal;
 
 -- < 서브쿼리 >
 SELECT last_name, salary

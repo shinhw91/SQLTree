@@ -14,7 +14,7 @@ SELECT employee_id, last_name, salary * 12 annsal
 FROM employees
 ORDER BY annsal;
 
--- colunm 번호 기준
+-- 컬럼(colunm) 번호 기준
 SELECT last_name, job_id, department_id, hire_date
 FROM employees
 ORDER BY 3;
@@ -381,7 +381,7 @@ SELECT last_name, job_id,
                                              'IT_PROG', 'C',
                                              'SA_REP', 'D',
                                              'ST_CLERK', 'E',
-                                             0)
+                                             '0')
                AS grade
 FROM employees;
 
@@ -393,5 +393,15 @@ SELECT last_name, job_id,
                               WHEN 'SA_REP' THEN 'D'
                               WHEN 'ST_CLERK' THEN 'E'
                               ELSE '0'
-               END grade
+               END AS grade
+FROM employees;
+
+SELECT last_name, job_id,
+               CASE WHEN job_id = 'AD_PRES' THEN 'A'
+                              WHEN job_id = 'ST_MAN' THEN 'B'
+                              WHEN job_id = 'IT_PROG' THEN 'C'
+                              WHEN job_id = 'SA_REP' THEN 'D'
+                              WHEN job_id = 'ST_CLERK' THEN 'E'
+                              ELSE '0'
+               END AS grade
 FROM employees;

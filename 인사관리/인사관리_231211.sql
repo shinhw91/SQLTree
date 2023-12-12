@@ -162,6 +162,7 @@ FROM departments d, locations l
 WHERE d.location_id = l.location_id
 AND d.department_id IN (20, 50);
 
+-- job_grades 파일 열기
 SELECT *
 FROM job_grades;
 
@@ -215,7 +216,7 @@ FROM departments NATURAL JOIN locations;
 DESC departments;
 DESC locations;
 
--- USING절 : () 안에 작성
+-- USING절 : 괄호() 안에 작성
 SELECT employee_id, last_name, location_id, department_id
 FROM employees JOIN departments
                               USING (department_id);
@@ -386,7 +387,7 @@ SELECT MAX(salary)
 FROM employees
 GROUP BY department_id;
 
--- 단일행 서브쿼리 (리턴값 1개) : 비교 연산자 사용
+-- 단일행 서브쿼리 (리턴값 1개) :  =, >, >=, <, <=, <>, !=
 SELECT last_name, salary
 FROM employees
 WHERE salary > (SELECT salary

@@ -412,7 +412,7 @@ MODIFY         (last_name VARCHAR2 (10));
 ALTER TABLE dept80
 MODIFY         (last_name VARCHAR2 (5));
 
---?????????
+-- 데이터가 NULL인 경우, 데이터 타입 변경 가능
 ALTER TABLE dept80
 MODIFY         (job_id NUMBER (10));
 
@@ -445,6 +445,9 @@ DROP TABLE dept80;
 SELECT object_name, original_name, type
 FROM user_recyclebin;
 
+-- 휴지통 비우기
+--PURGE RECYCLEBIN;
+
 -- FLASHBACK (복구)
 FLASHBACK TABLE dept80 TO BEFORE DROP;
 
@@ -466,5 +469,83 @@ FROM dept;
 SELECT *
 FROM dept80;
 
--- TRUNCATE (테이블 삭제)
+-- TRUNCATE (테이블 절삭) : 모든 행 삭제, 테이블 유지
 TRUNCATE TABLE dept80;
+
+-- sql07
+-- 1번 문제
+SELECT last_name, hire_date
+FROM employees
+WHERE department_id = (SELECT department_id
+                                             FROM employees
+                                             WHERE LOWER(last_name) = 'zlotkey')
+AND LOWER(last_name) != 'zlitkey';
+
+-- 2번 문제
+SELECT employee_id, last_name, salary
+FROM employees
+WHERE salary > (SELECT AVG(salary)
+                              FROM employees)
+ORDER BY salary;
+
+-- 3번 문제
+SELECT employee_id, last_name
+FROM employees
+WHERE department_id IN (SELECT department_id
+                                             FROM employees
+                                             WHERE last_name LIKE '%u%');
+
+-- 4번 문제
+SELECT e.last_name, e.department_id, e.job_id, l.location_id
+FROM employees e, departments d, locations l
+WHERE e.department_id = d.department_id
+AND d.location_id = l.location_id
+AND l.location_id = 1700;
+
+SELECT last_name, department_id, job_id
+FROM employees
+WHERE department_id IN (SELECT department_id
+                                             FROM departments
+                                             WHERE location_id = 1700);
+
+-- 5번 문제
+SELECT w.last_name, w.salary, m.last_name
+FROM employees w, employees m
+WHERE w.manager_id = m.employee_id
+AND m.last_name = 'King';
+
+SELECT last_name, salary
+FROM employees
+WHERE manager_id IN (SELECT employee_id
+                                             FROM employees
+                                             WHERE LOWER(last_name) = 'king');
+
+-- 6번 문제
+SELECT e.department_id, e.last_name, e.job_id, d.department_name
+FROM employees e, departments d
+WHERE e.department_id = d.department_id
+AND d.department_name = 'Executive';
+
+SELECT department_id, last_name, job_id
+FROM employees
+WHERE department_id = (SELECT department_id
+                                             FROM departments
+                                             WHERE LOWER(department_name) = 'executive');
+
+-- 7번 문제
+-- ??????????????? 
+SELECT employee_id, last_name, salary
+FROM employees
+WHERE department_id IN (SELECT department_id
+                                             FROM employees
+                                             WHERE salary > (SELECT AVG(salary)
+                                                                           FROM employees)
+                                             AND last_name LIKE '%u%');
+                                     
+SELECT employee_id, last_name, salary
+FROM employees
+WHERE department_id IN (SELECT department_id
+                                             FROM employees
+                                             WHERE LOWER(last_name) LIKE '%u%')
+AND salary > (SELECT AVG(salary)
+                              FROM employees);

@@ -14,7 +14,7 @@ SELECT employee_id, last_name, salary * 12 annsal
 FROM employees
 ORDER BY annsal;
 
--- 컬럼(colunm) 번호 기준
+-- 컬럼(column) 번호 기준
 SELECT last_name, job_id, department_id, hire_date
 FROM employees
 ORDER BY 3;

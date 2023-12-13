@@ -31,7 +31,7 @@ AND job_id <> 'IT_PROG';
 -- > ALL : 최대값보다 큼
 
 -- cre_empl 파일 열기
--- 다중열 서브쿼리 : 컬럼(Colunm) 순서쌍
+-- 다중열 서브쿼리 : 컬럼(Column) 순서쌍
 -- WHERE : 괄호() 안에 작성
 SELECT employee_id, manager_id, department_id
 FROM empl_demo
@@ -549,3 +549,6 @@ WHERE department_id IN (SELECT department_id
                                              WHERE LOWER(last_name) LIKE '%u%')
 AND salary > (SELECT AVG(salary)
                               FROM employees);
+                              
+SELECT *
+FROM employees;

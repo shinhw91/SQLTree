@@ -38,8 +38,8 @@ SELECT AVG(NVL(commission_pct, 0)), AVG(commission_pct)
 FROM employees;
 
 -- 파싱 순서 : FROM -> WHERE -> GROUP BY -> SELECT -> ORDER BY
--- GROUP BY : 컬럼(Colunm)별
--- 그룹함수 외 컬럼(Colunm) GROUP BY 추가 필수
+-- GROUP BY : 컬럼(Column)별
+-- 그룹함수 외 컬럼(Column) GROUP BY 추가 필수
 SELECT department_id, AVG(salary)
 FROM employees
 GROUP BY department_id;
@@ -48,7 +48,7 @@ SELECT AVG(salary)
 FROM employees
 GROUP BY department_id;
 
--- GROUP BY : 1차 컬럼(Colunm)별, 2차 컬럼(Colunm)별
+-- GROUP BY : 1차 컬럼(Column)별, 2차 컬럼(Column)별
 SELECT department_id, job_id, SUM(salary), COUNT(salary)
 FROM employees
 GROUP BY department_id, job_id
@@ -78,7 +78,7 @@ SELECT MAX(AVG(salary))
 FROM employees
 GROUP BY department_id;
 
--- 그룹 함수 중첩 시 일반 컬럼(Colunm) 추가 불가
+-- 그룹 함수 중첩 시 일반 컬럼(Column) 추가 불가
 SELECT department_id, MAX(AVG(salary))
 FROM employees
 GROUP BY department_id;
@@ -173,12 +173,12 @@ WHERE e.salary
                BETWEEN j.lowest_sal AND j.highest_sal;
                
 -- OUTER JOIN : 오라클은 FULL OUTER JOIN 없음
--- RIGHT OUTER JOIN : 오른쪽 컬럼(Colunm)에서 남는 값 포함
+-- RIGHT OUTER JOIN : 오른쪽 컬럼(Column)에서 남는 값 포함
 SELECT e.last_name, e.department_id, d.department_name
 FROM employees e, departments d
 WHERE e.department_id(+) = d.department_id;
 
--- LEFT OUTER JOIN : 왼쪽 컬럼(Colunm)에서 남는 값 포함
+-- LEFT OUTER JOIN : 왼쪽 컬럼(Column)에서 남는 값 포함
 SELECT e.last_name, e.department_id, d.department_name
 FROM employees e, departments d
 WHERE e.department_id = d.department_id(+);
@@ -209,7 +209,7 @@ FROM employees CROSS JOIN departments;
 SELECT last_name, department_name
 FROM employees, departments;
 
--- 자연 조인(NATURAL JOIN) : 동일한 컬럼(Colunm) 기준
+-- 자연 조인(NATURAL JOIN) : 동일한 컬럼(Column) 기준
 SELECT department_id, department_name, location_id, city
 FROM departments NATURAL JOIN locations;
 
@@ -221,7 +221,7 @@ SELECT employee_id, last_name, location_id, department_id
 FROM employees JOIN departments
                               USING (department_id);
 
--- 기준 컬럼(Colunm)에서는 테이블 열 별칭 제거
+-- 기준 컬럼(Column)에서는 테이블 열 별칭 제거
 SELECT l.city, d.department_name
 FROM locations l JOIN departments d
                               USING (location_id)

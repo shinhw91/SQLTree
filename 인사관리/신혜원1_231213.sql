@@ -91,11 +91,6 @@ UPDATE PROF
 SET PROFNO = 1001
 WHERE PAY = 1200;
 
-[¥‰æ»]
-UPDATE PROF
-SET PAY = 1200
-WHERE PROFNO = 1001;
-
 -- (3)
 DELETE FROM PROF
 WHERE PROFNO = 1003;
@@ -104,10 +99,6 @@ WHERE PROFNO = 1003;
 -- (1)
 ALTER TABLE PROF
 ADD PRIMARY KEY (PROFNO);
-
-[¥‰æ»]
-ALTER TABLE PROF
-ADD CONSTRAINT PROF_NO_PK PRIMARY KEY (PROFNO);
 
 -- (2)
 ALTER TABLE PROF
@@ -131,13 +122,3 @@ AS SELECT PROFNO AS PNO, NAME AS PNAME, ID, HIREDATE
 -- 15π¯ πÆ¡¶
 -- (1)
 DROP TABLE PROF_VU PURGE;
-
-[¥‰æ»]
-DROP TABLE PROF PURGE;
-
--- (2)
-Î∑?, ?èô?ùò?ñ¥ : ?ú†Ïß?
-?ù∏?ç±?ä§ : ?Ç≠?†ú
-
--- 16π¯ πÆ¡¶
-4Í∞? ?Öå?ù¥Î∏? Ï°∞Ïù∏ Ï°∞Í±¥ : ÏµúÏÜå 3Í∞?

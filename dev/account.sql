@@ -1,5 +1,6 @@
 SELECT *
-FROM account;
+FROM account
+ORDER BY 1;
 
 DROP TABLE account;
 

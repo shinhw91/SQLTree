@@ -1,5 +1,6 @@
 SELECT *
-FROM product;
+FROM product
+ORDER BY 1;
 
 DROP TABLE product;
 
@@ -13,6 +14,9 @@ CREATE TABLE product (
 -- 등록
 INSERT INTO product(product_code, product_name, product_price)
 VALUES('Z-002', '상품002', 2000);
+
+INSERT INTO product(product_code, product_name, product_price)
+VALUES('G-001', 'GGG', 99999);
 
 -- 수정
 UPDATE product

@@ -11,29 +11,24 @@ CREATE TABLE account (
                account_grade                 VARCHAR2 (100) NOT NULL,
                account_pw                    VARCHAR2 (100) NOT NULL);
       
-               
----- 로그인
---SELECT *
---FROM account
---WHERE account_code = 'A-001' AND account_pw = '111';
---        
---               
----- 계정등록
---INSERT INTO account
---VALUES ('A-001', '관리자001', '관리자', '111');
---
---
----- 정보수정
---UPDATE account
---SET account_pw = '0000'
---WHERE account_code = 'A-002';
---
---
----- 계정목록
---SELECT *
---FROM account;
---
---
----- 삭제
---DELETE FROM account
---WHERE account_code = 'A-002' AND account_pw = '222';
+INSERT INTO account
+VALUES('A-001', '관리자001', '관리자', '111');
+INSERT INTO account
+VALUES('A-002', '관리자001', '관리자', '222');
+INSERT INTO account
+VALUES('A-003', '관리자001', '관리자', '333');
+INSERT INTO account
+VALUES('A-004', '관리자001', '관리자', '444');
+INSERT INTO account
+VALUES('A-005', '관리자001', '관리자', '555');
+
+INSERT INTO account
+VALUES('B-001', '판매원001', '판매원', '111');
+INSERT INTO account
+VALUES('B-002', '판매원002', '판매원', '222');
+INSERT INTO account
+VALUES('B-003', '판매원003', '판매원', '333');
+INSERT INTO account
+VALUES('B-004', '판매원004', '판매원', '444');
+INSERT INTO account
+VALUES('B-005', '판매원005', '판매원', '555');

@@ -57,7 +57,22 @@ VALUES (19, '2023-12-08', 'P00008', 2, 1800*2, '카드', '판매');
 INSERT INTO history
 VALUES (20, '2023-12-20', 'P00009', 1, 2300*1, '카드', '판매');
 
+CREATE SEQUENCE history_seq
+                              INCREMENT BY 1
+                              START WITH 21
+                              MAXVALUE 9999
+                              NOCACHE
+                              NOCYCLE;
+                              
+INSERT INTO history
+VALUES (history_seq.NEXTVAL, '2023-12-31', 'P00010', 1, 1400*1, '카드', '판매');
 
+SELECT history_seq.CURRVAL
+FROM dual;
+
+ALTER SEQUENCE history_seq INCREMENT BY -5;
+
+drop sequence history_seq;
 
 
 

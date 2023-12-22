@@ -73,8 +73,23 @@ WHERE book_code = 'A-002';
 COMMIT;
 
 
+CREATE TABLE board (
+               board_no       NUMBER PRIMARY KEY,
+               title          VARCHAR2 (100) NOT NULL,
+               content        VARCHAR2 (500) NOT NULL,
+               writer         VARCHAR2 (50) NOT NULL,
+               write_date     DATE DEFAULT SYSDATE,
+               click_cnt      NUMBER DEFAULT 0,
+               image          VARCHAR2 (100)
+);
 
+CREATE SEQUENCE board_seq;
 
-               
-               
+INSERT INTO board (board_no, title, writer, content)
+VALUES (board_seq.nextval, '첫번째 글', '홍길동', 'JSP 너무 어려워요');
+INSERT INTO board (board_no, title, writer, content)
+VALUES (board_seq.nextval, '오늘은 금요일', '김박사', '불코딩');
+INSERT INTO board (board_no, title, writer, content)
+VALUES (board_seq.nextval, '우리반 화이팅', '김막내', '열심히 공부해요');
 
+select * from board order by 1;

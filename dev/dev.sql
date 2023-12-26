@@ -93,3 +93,17 @@ INSERT INTO board (board_no, title, writer, content)
 VALUES (board_seq.nextval, '우리반 화이팅', '김막내', '열심히 공부해요');
 
 select * from board order by 1;
+
+select * from tab;
+
+create table member (
+               id varchar2 (20) primary key,
+               pw varchar2 (10) not null,
+               name varchar2 (100) not null,
+               responsibility varchar2 (10) default 'User'  -- Admin / User
+);
+
+insert into member values ('user1', '1111', '홍길동', 'User');
+insert into member values ('user2', '2222', '김철수', 'User');
+insert into member values ('user3', '3333', '관리자', 'Admin');
+commit;

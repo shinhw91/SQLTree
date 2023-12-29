@@ -107,3 +107,27 @@ insert into member values ('user1', '1111', '홍길동', 'User');
 insert into member values ('user2', '2222', '김철수', 'User');
 insert into member values ('user3', '3333', '관리자', 'Admin');
 commit;
+
+create table product (
+ product_code char(8) primary key, -- P2023-01
+ product_name varchar2(100) not null,
+ product_desc varchar2(300) not null,
+ origin_price number not null,
+ sale_price number,
+ like_it number default 3, --추천수
+ image varchar2(35)
+);
+
+insert into product values('P2023-01', '과테말라 원두', '과테말라산 원두입니다.', 5000, 4500, 5, '과테말라.jpg');
+insert into product values('P2023-02', '니카라구아 더치', '과테말라산 원두입니다.', 5500, 4500, 5, '니카라구아 더치.jpg');
+insert into product values('P2023-03', '브라질산토스', '과테말라산 원두입니다.', 6000, 5000, 5, '브라질산토스.jpg');
+insert into product values('P2023-04', '에티오피아 예가체프', '과테말라산 원두입니다.', 6000, 5000, 5, '에티오피아 예가체프.jpg');
+insert into product values('P2023-05', '케냐 오크라톡신', '과테말라산 원두입니다.', 4500, 3000, 5, '케냐 오크라톡신.jpg');
+insert into product values('P2023-06', '코스타리카 따라주', '과테말라산 원두입니다.', 3000, 2500, 1, '코스타리카 따라주.jpg');
+
+select *
+from product;
+
+drop table product;
+
+commit;

@@ -119,11 +119,11 @@ create table product (
 );
 
 insert into product values('P2023-01', '과테말라 원두', '과테말라산 원두입니다.', 5000, 4500, 5, '과테말라.jpg');
-insert into product values('P2023-02', '니카라구아 더치', '과테말라산 원두입니다.', 5500, 4500, 5, '니카라구아 더치.jpg');
-insert into product values('P2023-03', '브라질산토스', '과테말라산 원두입니다.', 6000, 5000, 5, '브라질산토스.jpg');
-insert into product values('P2023-04', '에티오피아 예가체프', '과테말라산 원두입니다.', 6000, 5000, 5, '에티오피아 예가체프.jpg');
-insert into product values('P2023-05', '케냐 오크라톡신', '과테말라산 원두입니다.', 4500, 3000, 5, '케냐 오크라톡신.jpg');
-insert into product values('P2023-06', '코스타리카 따라주', '과테말라산 원두입니다.', 3000, 2500, 1, '코스타리카 따라주.jpg');
+insert into product values('P2023-02', '니카라구아 더치', '니카라구아 더치 맛있는 커피입니다.', 5500, 4500, 3, '니카라구아 더치.jpg');
+insert into product values('P2023-03', '브라질산토스', '브라질산토스 맛있는 커피입니다.', 6000, 5000, 5, '브라질산토스.jpg');
+insert into product values('P2023-04', '에티오피아 예가체프', '에티오피아 예가체프 맛있는 커피입니다.', 4000, 3500, 2, '에티오피아 예가체프.jpg');
+insert into product values('P2023-05', '케냐 오크라톡신', '케냐 오크라톡신 맛있는 커피입니다.', 4500, 3000, 4, '케냐 오크라톡신.jpg');
+insert into product values('P2023-06', '코스타리카 따라주', '코스타리카 따라주 맛있는 커피입니다.', 3000, 2500, 5, '코스타리카 따라주.jpg');
 
 select *
 from product;

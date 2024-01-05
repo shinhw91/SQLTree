@@ -131,3 +131,47 @@ from product;
 drop table product;
 
 commit;
+
+-- ´ñ±Û(´ñ±Û¹øÈ£, °Ô½Ã±Û¹øÈ£, ³»¿ë, ÀÛ¼ºÀÚ, ÀÛ¼ºÀÏ½Ã)
+create table reply (
+               reply_no number primary key,
+               board_no number not null,
+               reply varchar2 (100) not null,
+               replyer varchar2 (30) not null,
+               reply_date date default sysdate
+);
+
+create sequence reply_seq;
+select * from reply;
+
+drop table reply;
+drop sequence reply_seq;
+
+insert into reply values(reply_seq.nextval, 1, 'Çò°¥·Á¿ä1', 'uesr1', '2023-01-05');
+insert into reply values(reply_seq.nextval, 1, 'Çò°¥·Á¿ä2', 'uesr2', '2023-01-06');
+insert into reply values(reply_seq.nextval, 1, 'Çò°¥·Á¿ä3', 'uesr3', '2023-01-07');
+insert into reply values(reply_seq.nextval, 2, 'Çò°¥·Á¿ä4', 'uesr1', '2023-01-05');
+insert into reply values(reply_seq.nextval, 2, 'Çò°¥·Á¿ä5', 'uesr2', '2023-01-06');
+insert into reply values(reply_seq.nextval, 2, 'Çò°¥·Á¿ä6', 'uesr3', '2023-01-07');
+insert into reply values(reply_seq.nextval, 3, 'Çò°¥·Á¿ä7', 'uesr1', '2023-01-05');
+insert into reply values(reply_seq.nextval, 3, 'Çò°¥·Á¿ä8', 'uesr2', '2023-01-06');
+insert into reply values(reply_seq.nextval, 3, 'Çò°¥·Á¿ä9', 'uesr3', '2023-01-07');
+
+select * from reply where board_no = 1;
+select * from reply where board_no = 2;
+select * from reply where board_no = 3;
+
+commit;
+
+-- ´ñ±Û ÆäÀÌÂ¡
+select b. * from
+(select rownum rn, a. * from
+(select r.*, m.name name
+from reply r
+join member m
+on r.replyer = m.id
+where board_no = 1
+order by 1
+) a ) b
+--where b.rn > (1-1)*5 and b.rn <=  1*5;
+where b.rn > (2-1)*5 and b.rn <=  2*5;

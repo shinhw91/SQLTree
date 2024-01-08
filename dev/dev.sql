@@ -106,6 +106,8 @@ create table member (
 insert into member values ('user1', '1111', 'È«±æµ¿', 'User');
 insert into member values ('user2', '2222', '±èÃ¶¼ö', 'User');
 insert into member values ('user3', '3333', '°ü¸®ÀÚ', 'Admin');
+insert into member values ('user4', '4444', '¹Ú¹Î±Ô', 'User');
+insert into member values ('user5', '5555', '±è»ç¶û', 'User');
 commit;
 
 create table product (
@@ -147,19 +149,17 @@ select * from reply;
 drop table reply;
 drop sequence reply_seq;
 
-insert into reply values(reply_seq.nextval, 1, 'Çò°¥·Á¿ä1', 'uesr1', '2023-01-05');
-insert into reply values(reply_seq.nextval, 1, 'Çò°¥·Á¿ä2', 'uesr2', '2023-01-06');
-insert into reply values(reply_seq.nextval, 1, 'Çò°¥·Á¿ä3', 'uesr3', '2023-01-07');
-insert into reply values(reply_seq.nextval, 2, 'Çò°¥·Á¿ä4', 'uesr1', '2023-01-05');
-insert into reply values(reply_seq.nextval, 2, 'Çò°¥·Á¿ä5', 'uesr2', '2023-01-06');
-insert into reply values(reply_seq.nextval, 2, 'Çò°¥·Á¿ä6', 'uesr3', '2023-01-07');
-insert into reply values(reply_seq.nextval, 3, 'Çò°¥·Á¿ä7', 'uesr1', '2023-01-05');
-insert into reply values(reply_seq.nextval, 3, 'Çò°¥·Á¿ä8', 'uesr2', '2023-01-06');
-insert into reply values(reply_seq.nextval, 3, 'Çò°¥·Á¿ä9', 'uesr3', '2023-01-07');
+insert into reply values(reply_seq.nextval, 1, 'Çò°¥·Á¿ä1', 'user1', '2023-01-05');
+insert into reply values(reply_seq.nextval, 1, '¤·¤·¤·¤·¤·¤·¤·¤·¤·¤·¤·', 'user2', '2023-01-05');
+insert into reply values(reply_seq.nextval, 1, '¤Ğ¤Ğ', 'user3', '2023-01-05');
+insert into reply values(reply_seq.nextval, 1, '¤²¤²¤²¤²¤²¤²', 'user4', '2023-01-05');
+insert into reply values(reply_seq.nextval, 1, '¤»', 'user5', '2023-01-05');
 
 select * from reply where board_no = 1;
 select * from reply where board_no = 2;
 select * from reply where board_no = 3;
+
+select * from reply;
 
 commit;
 
@@ -174,4 +174,10 @@ where board_no = 1
 order by 1
 ) a ) b
 --where b.rn > (1-1)*5 and b.rn <=  1*5;
-where b.rn > (2-1)*5 and b.rn <=  2*5;
+where b.rn > (2-1)*5 and b.rn <=  2*5;          
+
+select name, count(*)
+from reply r
+join member m
+on r.replyer = m.id
+group by name;

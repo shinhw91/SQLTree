@@ -102,6 +102,8 @@ create table member (
                name varchar2 (100) not null,
                responsibility varchar2 (10) default 'User'  -- Admin / User
 );
+alter table member add image varchar2 (100);
+select * from member;
 
 insert into member values ('user1', '1111', 'È«±æµ¿', 'User');
 insert into member values ('user2', '2222', '±èÃ¶¼ö', 'User');
@@ -181,3 +183,11 @@ from reply r
 join member m
 on r.replyer = m.id
 group by name;
+
+create table books (
+ book_code varchar2(10) primary key,
+ book_name varchar2(100) not null,
+ book_author varchar2(100) not null,
+ book_press varchar2(100) not null,
+ book_price number not null
+);

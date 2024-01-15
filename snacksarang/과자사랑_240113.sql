@@ -131,9 +131,9 @@ insert into member values('M-00008', 'user8', '0000', '회원8', '010-8888-8888', 
 insert into member values('M-00009', 'user9', '0000', '회원9', '010-9999-9999', '대구시 중구 중앙대로', 'user9@naver.com');
 insert into member values('M-00010', 'user10', '0000', '회원10', '010-0000-0000', '대구시 중구 중앙대로', 'user10@naver.com');
 
-insert into goods values('G-00001', '상품1', '예담', 1000, '과자/,쿠키', '새우깡.png', '새우깡.png');
-insert into goods values('G-00002', '상품2', '예담', 2000, '과자/,쿠키', '새우깡.png', '새우깡.png');
-insert into goods values('G-00003', '상품3', '예담', 3000, '과자/,쿠키', '새우깡.png', '새우깡.png');
+insert into goods values('G-00001', '상품1', '예담', 1000, '과자/쿠키', '새우깡.png', '새우깡.png');
+insert into goods values('G-00002', '상품2', '예담', 2000, '과자/쿠키', '새우깡.png', '새우깡.png');
+insert into goods values('G-00003', '상품3', '예담', 3000, '과자/쿠키', '새우깡.png', '새우깡.png');
 insert into goods values('G-00004', '상품4', '예담', 4000, '초콜릿/젤리', '새우깡.png', '새우깡.png');
 insert into goods values('G-00005', '상품5', '예담', 5000, '초콜릿/젤리', '새우깡.png', '새우깡.png');
 insert into goods values('G-00006', '상품6', '예담', 6000, '초콜릿/젤리', '새우깡.png', '새우깡.png');

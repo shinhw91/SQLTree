@@ -1,14 +1,14 @@
 --DB 檬扁拳
-drop table review;
-drop table detail;
-drop table orders;
-drop table cart;
+--drop table review;
+--drop table detail;
+--drop table orders;
+--drop table cart;
 --drop table goods;
-drop table member;
-
-drop sequence detail_seq;
-drop sequence cart_seq;
-drop sequence review_seq;
+--drop table member;
+--
+--drop sequence detail_seq;
+--drop sequence cart_seq;
+--drop sequence review_seq;
 
 --ERDCloud
 CREATE TABLE member (
@@ -205,5 +205,3 @@ select * from orders order by 1;
 select * from review order by 1;
 
 commit;
-
-select * from goods where goods_name like '%惑%';府', '货快兵.png', '货快兵.png');

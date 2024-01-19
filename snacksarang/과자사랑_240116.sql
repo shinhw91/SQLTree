@@ -5,6 +5,7 @@
 --drop table cart;
 --drop table goods;
 --drop table member;
+--drop table likes;
 --
 --drop sequence detail_seq;
 --drop sequence cart_seq;
@@ -55,7 +56,7 @@ CREATE TABLE orders (
 CREATE TABLE review (
 	review_code	number		NOT NULL,
 	goods_code	varchar2(100)		NOT NULL,
-	member_code	varchar2(100)		NULL,               
+	member_code	varchar2(100)		NULL,
 	title	varchar2(500)		NULL,
 	content	clob		NULL,
 	stars	number		NULL,
@@ -74,7 +75,14 @@ CREATE TABLE detail (
 	order_code	varchar2(100)		NOT NULL,
 	goods_code	varchar2(100)		NOT NULL,
 	quantity	number		NULL,
-	detail_price	number		NULL
+	detail_price	number		NULL,
+	review_code	number		NULL
+);
+
+CREATE TABLE likes (
+	likes_code	number		NOT NULL,
+	goods_code	varchar2(100)		NOT NULL,
+	member_code	varchar2(100)		NULL
 );
 
 ALTER TABLE member ADD CONSTRAINT PK_MEMBER PRIMARY KEY (
@@ -99,6 +107,10 @@ ALTER TABLE cart ADD CONSTRAINT PK_CART PRIMARY KEY (
 
 ALTER TABLE detail ADD CONSTRAINT PK_DETAIL PRIMARY KEY (
 	detail_code
+);
+
+ALTER TABLE likes ADD CONSTRAINT PK_LIKES PRIMARY KEY (
+	likes_code
 );
 
 ALTER TABLE review ADD CONSTRAINT FK_goods_TO_review_1 FOREIGN KEY (
@@ -128,6 +140,19 @@ ALTER TABLE detail ADD CONSTRAINT FK_goods_TO_detail_1 FOREIGN KEY (
 REFERENCES goods (
 	goods_code
 );
+
+ALTER TABLE likes ADD CONSTRAINT FK_goods_TO_likes_1 FOREIGN KEY (
+	goods_code
+)
+REFERENCES goods (
+	goods_code
+);
+
+
+
+
+
+
 
 --샘플파일
 insert into member values('M-00001', 'user1', '0000', '회원1', '010-1111-1111', '대구시 중구 중앙대로', 'user1@naver.com');
@@ -172,16 +197,16 @@ insert into orders values('O-00002', 'M-00002', '2024-05-05', '서울시 송파구 올�
 
 create sequence detail_seq;
 
-insert into detail values(detail_seq.nextval, 'O-00001', 'G-00001', 1, 1000);
-insert into detail values(detail_seq.nextval, 'O-00001', 'G-00002', 1, 2000);
-insert into detail values(detail_seq.nextval, 'O-00001', 'G-00003', 1, 3000);
-insert into detail values(detail_seq.nextval, 'O-00001', 'G-00004', 1, 4000);
-insert into detail values(detail_seq.nextval, 'O-00001', 'G-00005', 1, 5000);
-insert into detail values(detail_seq.nextval, 'O-00002', 'G-00006', 1, 6000);
-insert into detail values(detail_seq.nextval, 'O-00002', 'G-00007', 1, 7000);
-insert into detail values(detail_seq.nextval, 'O-00002', 'G-00008', 1, 8000);
-insert into detail values(detail_seq.nextval, 'O-00002', 'G-00009', 1, 9000);
-insert into detail values(detail_seq.nextval, 'O-00002', 'G-00010', 1, 10000);
+insert into detail(detail_code, order_code, goods_code, quantity, detail_price) values(detail_seq.nextval, 'O-00001', 'G-00001', 1, 1000);
+insert into detail(detail_code, order_code, goods_code, quantity, detail_price) values(detail_seq.nextval, 'O-00001', 'G-00002', 1, 2000);
+insert into detail(detail_code, order_code, goods_code, quantity, detail_price) values(detail_seq.nextval, 'O-00001', 'G-00003', 1, 3000);
+insert into detail(detail_code, order_code, goods_code, quantity, detail_price) values(detail_seq.nextval, 'O-00001', 'G-00004', 1, 4000);
+insert into detail(detail_code, order_code, goods_code, quantity, detail_price) values(detail_seq.nextval, 'O-00001', 'G-00005', 1, 5000);
+insert into detail(detail_code, order_code, goods_code, quantity, detail_price) values(detail_seq.nextval, 'O-00002', 'G-00006', 1, 6000);
+insert into detail(detail_code, order_code, goods_code, quantity, detail_price) values(detail_seq.nextval, 'O-00002', 'G-00007', 1, 7000);
+insert into detail(detail_code, order_code, goods_code, quantity, detail_price) values(detail_seq.nextval, 'O-00002', 'G-00008', 1, 8000);
+insert into detail(detail_code, order_code, goods_code, quantity, detail_price) values(detail_seq.nextval, 'O-00002', 'G-00009', 1, 9000);
+insert into detail(detail_code, order_code, goods_code, quantity, detail_price) values(detail_seq.nextval, 'O-00002', 'G-00010', 1, 10000);
 
 create sequence review_seq;
 
@@ -196,6 +221,20 @@ insert into review values(review_seq.nextval, 'G-00008', 'M-00002', '상품평8', '
 insert into review values(review_seq.nextval, 'G-00009', 'M-00002', '상품평9', '상품평입니다. 최소 30자 이상 작성해주세요.', 5, '2024-05-12');
 insert into review values(review_seq.nextval, 'G-00010', 'M-00002', '상품평10', '상품평입니다. 최소 30자 이상 작성해주세요.', 5, '2024-05-12');
 
+create sequence likes_seq;
+
+insert into likes values(likes_seq.nextval, 'G-00001', 'M-00001');
+insert into likes values(likes_seq.nextval, 'G-00002', 'M-00001');
+insert into likes values(likes_seq.nextval, 'G-00003', 'M-00001');
+insert into likes values(likes_seq.nextval, 'G-00004', 'M-00001');
+insert into likes values(likes_seq.nextval, 'G-00005', 'M-00001');
+insert into likes values(likes_seq.nextval, 'G-00006', 'M-00002');
+insert into likes values(likes_seq.nextval, 'G-00007', 'M-00002');
+insert into likes values(likes_seq.nextval, 'G-00008', 'M-00002');
+insert into likes values(likes_seq.nextval, 'G-00009', 'M-00002');
+insert into likes values(likes_seq.nextval, 'G-00010', 'M-00002');
+
+
 -- 테이블 조회
 select * from member order by 1;
 select * from goods order by 1;
@@ -203,5 +242,6 @@ select * from cart order by 1;
 select * from detail order by 1;
 select * from orders order by 1;
 select * from review order by 1;
+select * from likes order by 1;
 
 commit;

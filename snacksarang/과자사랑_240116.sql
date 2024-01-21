@@ -207,6 +207,7 @@ insert into detail(detail_code, order_code, goods_code, quantity, detail_price) 
 insert into detail(detail_code, order_code, goods_code, quantity, detail_price) values(detail_seq.nextval, 'O-00002', 'G-00008', 1, 8000);
 insert into detail(detail_code, order_code, goods_code, quantity, detail_price) values(detail_seq.nextval, 'O-00002', 'G-00009', 1, 9000);
 insert into detail(detail_code, order_code, goods_code, quantity, detail_price) values(detail_seq.nextval, 'O-00002', 'G-00010', 1, 10000);
+insert into detail(detail_code, order_code, goods_code, quantity, detail_price) values(detail_seq.nextval, 'O-00002', 'G-00010', 1, 10000);
 
 create sequence review_seq;
 
@@ -245,3 +246,5 @@ select * from review order by 1;
 select * from likes order by 1;
 
 commit;
+
+select d.goods_code, count(d.goods_code) count, g.goods_name, g.price, g.thumb_image from detail d, goods g where d.goods_code = g.goods_code and category = '°úÀÚ' group by d.goods_code, g.goods_name, g.price, g.thumb_image order by 2 desc;

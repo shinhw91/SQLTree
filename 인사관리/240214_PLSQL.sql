@@ -442,41 +442,44 @@ END;
 -- 1) 기본 LOOP
 DECLARE
           v_num NUMBER(2, 0) := 1;
-          v_star VARCHAR2(100);
+          v_star VARCHAR2(100) := '';
 BEGIN
           LOOP
-                    v_star := '*' * v_num;
+                    v_star := v_star || '*';
                     DBMS_OUTPUT.PUT_LINE(v_star);
-                    v_num := v_num + star;
+                    v_num := v_num + 1;
+                    EXIT WHEN v_num > 5;
           END LOOP;
 END;
 /
-
 
 
 
 -- 2) WHILE LOOP
--- 3) FOR LOOP
-
--- 1) 기본 LOOP
 DECLARE
-          v_sum NUMBER(2, 0) := 0;
           v_num NUMBER(2, 0) := 1;
+          v_star VARCHAR2(100) := '';
 BEGIN
-          LOOP
-                    v_sum := v_sum + v_num;
+          WHILE  v_num <= 5 LOOP
+                    v_star := v_star || '*';
+                    DBMS_OUTPUT.PUT_LINE(v_star);
                     v_num := v_num + 1;
-                    EXIT WHEN v_num > 10;
           END LOOP;
-          DBMS_OUTPUT.PUT_LINE(v_sum);
 END;
 /
 
 
 
-
-
-
+-- 3) FOR LOOP
+DECLARE
+          v_star VARCHAR2(100) := '';
+BEGIN
+          FOR num IN 1 .. 5 LOOP
+                    v_star := v_star || '*';
+                    DBMS_OUTPUT.PUT_LINE(v_star);
+          END LOOP;
+END;
+/
 
 
 

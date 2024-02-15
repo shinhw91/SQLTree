@@ -433,7 +433,7 @@ END;
 /
 
 
-
+-- 문제 1. 다음과 같이 출력되도록 하시오
 -- *
 -- **
 -- ***
@@ -442,7 +442,7 @@ END;
 -- 1) 기본 LOOP
 DECLARE
           v_num NUMBER(2, 0) := 1;
-          v_star VARCHAR2(100) := '';
+          v_star VARCHAR2(100) := '';   -- NULL 초기값 미권장(연산 불가)
 BEGIN
           LOOP
                     v_star := v_star || '*';
@@ -480,6 +480,33 @@ BEGIN
           END LOOP;
 END;
 /
+
+-- 이중 FOR LOOP
+BEGIN
+          FOR counter IN 1 .. 5 LOOP    -- 몇번째 줄
+                    FOR i IN 1 .. counter LOOP
+                              DBMS_OUTPUT.PUT('*');         -- 단독사용 불가(PUT_LINE 필요)
+                    END LOOP;
+                    DBMS_OUTPUT.PUT_LINE('');
+          END LOOP;
+END;
+/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

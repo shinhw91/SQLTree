@@ -1,0 +1,43 @@
+DECLARE
+    v_min employees.employee_id%TYPE; -- 최소 사원번호
+    v_max employees.employee_id%TYPE; -- 최대 사원번호
+    v_result NUMBER(1,0);             -- 사원의 존재유무를 확인
+    v_emp_record employees%ROWTYPE;     -- Employees 테이블의 한 행에 대응
+    
+    TYPE emp_table_type IS TABLE OF v_emp_record%TYPE
+        INDEX BY PLS_INTEGER;
+    
+    v_emp_table emp_table_type;
+BEGIN
+    -- 최소 사원번호, 최대 사원번호
+    SELECT MIN(employee_id), MAX(employee_id)
+    INTO v_min, v_max
+    FROM employees;
+    
+    FOR eid IN v_min .. v_max LOOP
+        SELECT COUNT(*)
+        INTO v_result
+        FROM employees
+        WHERE employee_id = eid;
+        
+        IF v_result = 0 THEN
+            CONTINUE;
+        END IF;
+        
+        SELECT *
+        INTO v_emp_record
+        FROM employees
+        WHERE employee_id = eid;
+        
+        v_emp_table(eid) := v_emp_record;     
+    END LOOP;
+    
+    FOR eid IN v_emp_table.FIRST .. v_emp_table.LAST LOOP
+        IF v_emp_table.EXISTS(eid) THEN
+            DBMS_OUTPUT.PUT(v_emp_table(eid).employee_id || ', ');
+            DBMS_OUTPUT.PUT(v_emp_table(eid).last_name || ', ');
+            DBMS_OUTPUT.PUT_LINE(v_emp_table(eid).hire_date);
+        END IF;
+    END LOOP;    
+END;
+/

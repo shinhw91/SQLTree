@@ -103,7 +103,7 @@ SELECT last_name, salary, salary * 12 + (NVL(salary, 0) * NVL(commission_pct, 0)
 FROM employees
 WHERE employee_id = &사원번호;
 
--- (택1) PL/SQL 블록 작성 : 권장
+-- (택1) PL/SQL 블록 작성
 DECLARE
           v_ename employees.last_name%TYPE;
           v_salary employees.salary%TYPE;
@@ -120,7 +120,7 @@ BEGIN
 END;
 /
 
--- (택2) PL/SQL 블록 작성 : 미권장
+-- (택2) PL/SQL 블록 작성
 DECLARE
           v_ename employees.last_name%TYPE;
           v_salary employees.salary%TYPE;
@@ -231,8 +231,8 @@ BEGIN
           FROM employees
           WHERE employee_id = &사원번호;
           
---          IF TO_CHAR(v_date, 'YYYY') >= 2015 THEN
-          IF v_date >= TO_DATE('2015-01-01', 'YYYY-MM-dd') THEN
+          IF TO_CHAR(v_date, 'YYYY') >= 2015 THEN
+--          IF v_date >= TO_DATE('2015-01-01', 'YYYY-MM-dd') THEN
                     DBMS_OUTPUT.PUT_LINE('New employee');
           ELSE
                     DBMS_OUTPUT.PUT_LINE('Career employee');
@@ -491,22 +491,3 @@ BEGIN
           END LOOP;
 END;
 /
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

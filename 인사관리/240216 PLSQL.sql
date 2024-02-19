@@ -579,9 +579,9 @@ EXECUTE yedam_ju(9501011667777);
 --DROP PROCEDURE TEST_PRO;
 
 CREATE PROCEDURE TEST_PRO
-(p_eid IN NUMBER)
+(p_eid IN employees.employee_id%TYPE)
 IS
-e_no_data EXCEPTION;
+          e_no_data EXCEPTION;
 BEGIN
           DELETE FROM test_employees
           WHERE employee_id = p_eid;
@@ -614,19 +614,19 @@ EXECUTE TEST_PRO(100);
 --DROP PROCEDURE yedam_emp;
 
 CREATE PROCEDURE yedam_emp
-(p_eid IN NUMBER)
+(p_eid IN employees.employee_id%TYPE)
 IS
-v_name test_employees.last_name%TYPE;
-v_result VARCHAR2(100);
+          v_name test_employees.last_name%TYPE;
+          v_result VARCHAR2(100);
 BEGIN
           SELECT last_name
           INTO v_name
           FROM test_employees
           WHERE employee_id = p_eid;
 
-          v_result := RPAD(SUBSTR(v_name, 1, 1), LENGTH(v_name), '*');
+          v_result := RPAD(SUBSTR(v_name, 1, 1), LENGTH(v_name), '*');          -- LENGTHB 바이트 기준
           
-          DBMS_OUTPUT.PUT_LINE(v_result);
+          DBMS_OUTPUT.PUT_LINE(v_name || ' -> ' || v_result);
 END;
 /
 
@@ -643,21 +643,22 @@ EXECUTE yedam_emp(101);
 실행) EXECUTE get_emp(30)
 */
 
---DROP PROCEDURE get_emp;
+DROP PROCEDURE get_emp;
 
 CREATE PROCEDURE get_emp
-(p_did IN NUMBER)
+(p_did IN employees.department_id%TYPE)
 IS
-          CURSOR emp_cursor (p_did test_employees.department_id%TYPE) IS
-          SELECT employee_id, last_name
-          FROM test_employees
-          WHERE department_id = p_did;
+          -- 프로시저 매개변수가 커서 매개변수 역할 포함
+          CURSOR emp_cursor IS
+                    SELECT employee_id, last_name
+                    FROM test_employees
+                    WHERE department_id = p_did;
 
-v_emp_info emp_cursor%ROWTYPE;
-e_no_data EXCEPTION;
+          v_emp_info emp_cursor%ROWTYPE;
+          e_no_data EXCEPTION;
 BEGIN
 
-          OPEN emp_cursor(p_did);
+          OPEN emp_cursor;
           
           LOOP
                     FETCH emp_cursor INTO v_emp_info;
@@ -667,6 +668,7 @@ BEGIN
                     DBMS_OUTPUT.PUT_LINE(', ' || v_emp_info.last_name);
           END LOOP;
           
+          -- 예외처리 시 FOR LOOP 사용 불가
           IF emp_cursor%ROWCOUNT = 0 THEN
                     RAISE e_no_data;
           END IF;
@@ -693,7 +695,7 @@ EXECUTE get_emp(0);
 --DROP PROCEDURE y_update;
 
 CREATE PROCEDURE y_update
-(p_eid IN NUMBER,
+(p_eid IN employees.employee_id%TYPE,
 p_cmt IN NUMBER)
 IS
 e_no_data EXCEPTION;
